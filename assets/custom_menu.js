@@ -8,9 +8,7 @@ jQuery( document ).ready(function($) {
 
     $('.site-header').append(`
         <div class="subMenuWrapper">
-            <div class="intro">
-                <div class="subMenuIntroText"></div>
-            </div>
+  
         </div>`);
 
 
@@ -26,11 +24,6 @@ jQuery( document ).ready(function($) {
             (title == undefined) ? title = '' : ''; 
             let introText = $(activeLI).find( "a" ).find('span').attr('intro-text');
             (introText == undefined) ? introText = '' : ''; 
-
-            $('.subMenuWrapper .subMenuIntroText').html(
-                `<div class="subMenuTitle">`+title+`</div>
-                <div class="subMenuText">`+introText+`</div>
-                `);
 
             let width = $(window).width() - ($(activeLI).offset().left);
             $(activeLI).find('.sub-menu li').width(width);

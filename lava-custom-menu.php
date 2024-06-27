@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Enboarder Custom Menu
  * Description: Adds an image field to each menu item and displays the associated image on the frontend. Includes Shortcodes for various pages.
- * Version: 1.0
+ * Version: 2.0
  * Author: Lava
 */
 
@@ -219,13 +219,6 @@ function my_wp_nav_menu_objects( $items, $args ) {
 				$item->title = '<span intro-text="'.$introText.'"></span>
 					'. $item->title;
 			}
-			else if($icon){
-				$item->title = '<img src="'.$icon.'" class="iconDefault" alt="'.$iconAltText.'"><img src="'.$iconHover.'" class="iconHover" alt="'.$iconAltText.'">' . ' ' .$item->title;
-			}
-			// else if($icon && array_key_exists('url',$icon)){
-			//     var_dump($icon);
-			//   $item->title = $item->title;
-			// }
 		}
 	}
 
