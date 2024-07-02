@@ -204,28 +204,21 @@ add_action( 'acf/include_fields', function() {
 
 
 /** Add Text and Icons to Menu items **/
-add_filter('wp_nav_menu_objects', 'my_wp_nav_menu_objects', 10, 2);
-function my_wp_nav_menu_objects( $items, $args ) {
-
-
-	if(get_field('activate_2023_header_menu','options')){
-		foreach( $items as &$item ) {
+function my_wp_nav_menu_objects($items, $args) {
+    if (get_field('activate_2023_header_menu', 'options')) {
+        foreach ($items as &$item) {
 			$icon = get_field('menu_submenu_icon', $item);
-			$iconHover = get_field('menu_submenu_icon_hover', $item);
-			$iconAltText = get_field('menu_icon_alt_Text', $item);
 
-			$introText = get_field('parent_intro_text', $item);
-			if( $introText ) {
-				$item->title = '<span intro-text="'.$introText.'"></span>
-					'. $item->title;
+
+            $icon = get_field('menu_submenu_icon', $item);
+   			if($icon){
+				$item->icon = '<img src="'.$icon.'" class="iconDefault" alt="'.$iconAltText.'"><img src="'.$iconHover.'" class="iconHover" alt="'.$iconAltText.'">' . ' ' .$item->title;
 			}
-		}
-	}
-
-
+        }
+    }
     return $items;
-    
 }
+add_filter('wp_nav_menu_objects', 'my_wp_nav_menu_objects', 10, 2);
 
 /** Enqueue styles and Scripts **/
 function lava_enqueue_styles() {
