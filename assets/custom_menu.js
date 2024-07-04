@@ -24,7 +24,14 @@ jQuery(document).ready(function ($) {
         var submenuContent = $this.find(".sub-menu").first().clone();
         submenuContent.removeClass("sub-menu").addClass("nested-menu");
         submenuContent.find("li").addClass("nested-menu-item");
-  
+        
+        // Add class if the UL contains further sub-menus
+        submenuContent.find("ul").each(function() {
+          if ($(this).find("li").length > 0) {
+            submenuContent.addClass("nested-menu-has-children");
+          }
+        });
+
         $(".subMenuWrapper")
           .empty()
           .append(submenuContent)
@@ -56,5 +63,4 @@ jQuery(document).ready(function ($) {
       activeLI = null;
       $(".subMenuWrapper").empty().removeClass("active");
     });
-  });
-  
+});

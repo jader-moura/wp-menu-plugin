@@ -225,15 +225,58 @@ ul {
 
 ul.nested-menu {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
+    padding: 52px 40px 20px 40px !important;
 }
 
-ul.nested-menu li.nested-menu-item {
-    flex: 1;
+ul.nested-menu-has-children{
+    display: flex;
+    flex-direction: row !important;
+    width: 100%;
+    padding: 0 !important;
 }
 
-ul.nested-menu > li.nested-menu-item:nth-child(even) {
+ul.nested-menu > li.menu-item-has-children {
+    padding: 52px 40px 20px 40px;
+}
+
+ul.nested-menu li.menu-item-has-children > a {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+ul.nested-menu li.menu-item-has-children > a:hover  {
+    color: #000;
+    text-decoration: none !important;
+}
+
+ul.sub-menu li {
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
+ul.sub-menu li:first-child {
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+
+
+ul.nested-menu a {
+    padding: 20px 0 !important;
+    color: #000;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+ul.nested-menu a:hover {
+    color: #7C21CC;
+    text-decoration: underline;
+}
+
+
+ul.nested-menu > li.menu-item-has-children:nth-child(even) {
     background-color: #F8F6FE; 
 }
 
