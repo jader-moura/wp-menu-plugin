@@ -1,13 +1,10 @@
 <?php
 /**
  * Plugin Name: Enboarder Custom Menu
- * Description: Adds an image field to each menu item and displays the associated image on the frontend.
- * Version: 1.0
- * Author: Lava
+ * Description: Enboarder custom menu with a possibility to add AD Image and AD links to each nested menu.
+ * Version: 2.0
+ * Author: Lava & NBD
 */
-
-
-//ou edita o menu OU cria um novo menu e altera-se no header.php
 
 
 
@@ -15,19 +12,94 @@
 add_action('acf/init', 'addACFPages');
 function addACFPages() {
     // Check function exists.
-    if( function_exists('acf_add_options_page') ) {
-        /** Activate 2023 Header Menu **/
-        acf_add_options_page(array(
-            'page_title'    => 'Header 2023',
-            'menu_title'    => 'Header 2023',
-            'menu_slug'     => 'activate-2023-header',
-            'capability'    => 'edit_posts',
+	if( function_exists('acf_add_options_page') ) {
+		acf_add_options_page(array(
+			'page_title'    => 'Header General Settings',
+			'menu_title'    => 'Header Settings',
+			'menu_slug'     => 'header-general-settings',
+			'capability'    => 'edit_posts',
             'icon_url'      => 'dashicons-editor-ul',
-            'redirect'      => false
-        ));
+			'redirect'      => false
+		));
+	
+		acf_add_local_field_group(array(
+			'key' => 'group_001',
+			'title' => 'Theme Header Settings',
+			'fields' => array(
+                array(
+                    'key' => 'field_001',
+                    'label' => 'Demo Button Label',
+                    'name' => 'book_demo_button_label',
+                    'type' => 'text',
+                    'default_value' => 'Book a Demo',
+                ),
+                array(
+                    'key' => 'field_002',
+                    'label' => 'Demo Button Link',
+                    'name' => 'book_demo_button_link',
+                    'type' => 'url',
+                    'default_value' => 'http://example.com',
+                )
+            ),
+			'location' => array(
+				array(
+					array(
+						'param' => 'options_page',
+						'operator' => '==',
+						'value' => 'header-general-settings',
+					),
+				),
+			),
+		));
+	}
+	
+}
 
+add_filter('wp_nav_menu_objects', 'add_custom_demo_label', 10, 2);
+function add_custom_demo_label($items, $args) {
+    foreach ($items as $item) {
+        if ($item->title == "Book a Demo") { // Exact match is crucial
+            $label = get_field('book_demo_button_label', 'option');
+            error_log('Checking label: ' . $label); // Check what label is being fetched
+            if ($label) {
+                $item->title = '<a id="bookDemo" href="' . $item->url . '">' . esc_html($label) . '</a>';
+                error_log('Label applied: ' . $item->title); // Confirm label application
+            }
+        }
+    }
+    return $items;
+}
+
+function enqueue_demo_button_script() {
+    if (function_exists('get_field')) {
+        $demo_label = get_field('book_demo_button_label', 'option');
+        $demo_link = get_field('book_demo_button_link', 'option');
+
+        // Debug output
+        error_log('Demo Label: ' . $demo_label);
+        error_log('Demo Link: ' . $demo_link);
+
+        ?>
+        <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            var label = <?php echo json_encode($demo_label); ?>;
+            var link = <?php echo json_encode($demo_link); ?>;
+            if (!link) {
+                console.error('Demo link is null:', link);
+                link = '#'; // Default fallback link
+            }
+            var buttonHtml = '<li class="menu-item menu-item-type-custom menu-item-object-custom"><a id="bookDemo" class="book" href="' + link + '">' + label + '</a></li>'
+                            + '<li class="menu-item menu-item-type-custom menu-item-object-custom"><a id="bookDemoMobile" class="hideDesk" href="' + link + '">' + label + '</a></li>';
+            
+            // Append the button to the site header inside the main menu UL
+			console.log("buttonHtml: ", buttonHtml)
+            $("#menu-main-menu").append(buttonHtml);
+        });
+        </script>
+        <?php
     }
 }
+add_action('wp_footer', 'enqueue_demo_button_script'); 
 
 
 /** ACF FIELDS MENU **/
@@ -71,52 +143,6 @@ add_action( 'acf/include_fields', function() {
 					'param' => 'nav_menu_item',
 					'operator' => '==',
 					'value' => 'all',
-				),
-			),
-		),
-		'menu_order' => 0,
-		'position' => 'normal',
-		'style' => 'default',
-		'label_placement' => 'top',
-		'instruction_placement' => 'label',
-		'hide_on_screen' => '',
-		'active' => true,
-		'description' => '',
-		'show_in_rest' => 0,
-	) );
-
-	/** ACF field in options page **/
-	acf_add_local_field_group( array(
-		'key' => 'group_6491817683171',
-		'title' => 'Options Page Header 2023',
-		'fields' => array(
-			array(
-				'key' => 'field_64918177695f8',
-				'label' => 'Activate 2023 Header Menu',
-				'name' => 'activate_2023_header_menu',
-				'aria-label' => '',
-				'type' => 'true_false',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'message' => 'Check the checkbox to activate 2023 Header Menu.',
-				'default_value' => 0,
-				'ui' => 0,
-				'ui_on_text' => '',
-				'ui_off_text' => '',
-			),
-		),
-		'location' => array(
-			array(
-				array(
-					'param' => 'options_page',
-					'operator' => '==',
-					'value' => 'activate-2023-header',
 				),
 			),
 		),
