@@ -40,7 +40,7 @@
 .site-header ul.menu > li:nth-last-child(2){
     position: absolute;
     right: 40px;
-    top: 28px;
+    top: 5px;
 } 
 
 .site-header ul.menu > li:nth-last-child(3) {
@@ -203,7 +203,7 @@ body.single-post .site-header .logo:hover:before {
 .site-header .subMenuWrapper{
     position: relative;
     top: 110px;
-    min-height: 320px !important;
+    max-height: 320px !important;
     background-color: #fff;
     z-index: 0;
     border: 1px solid #E9E5EE;
@@ -237,8 +237,15 @@ ul.nested-menu-has-children{
     padding: 0 !important;
 }
 
+ul.nested-menu > li {
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
 ul.nested-menu > li.menu-item-has-children {
     padding: 52px 40px 20px 40px;
+    height: 100%;
+    max-height: 300px;
 }
 
 ul.nested-menu li.menu-item-has-children > a {
@@ -280,6 +287,9 @@ ul.nested-menu > li.menu-item-has-children:nth-child(even) {
     background-color: #F8F6FE; 
 }
 
+img.menu-ad-image {
+    border-radius: 0 0 15px;
+}
 
 .site-header .subMenuWrapper .subMenuIntroText {
     max-width: 910px;

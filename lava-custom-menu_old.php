@@ -42,94 +42,27 @@ add_action( 'acf/include_fields', function() {
 		'title' => 'Header Menu fields',
 		'fields' => array(
 			array(
-				'key' => 'field_648875145aea8',
-				'label' => 'Icon',
-				'name' => 'menu_submenu_icon',
-				'aria-label' => '',
-				'type' => 'image',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'return_format' => 'url',
-				'library' => 'all',
-				'min_width' => '',
-				'min_height' => '',
-				'min_size' => '',
-				'max_width' => '',
-				'max_height' => '',
-				'max_size' => '',
-				'mime_types' => '',
-				'preview_size' => 'medium',
-			),
+                'key' => 'field_6498751adimg',
+                'label' => 'AD Image',
+                'name' => 'ad_image',
+                'type' => 'image',
+                'return_format' => 'url',
+                'preview_size' => 'thumbnail',
+                'library' => 'all'
+            ),
             array(
-				'key' => 'field_6erf44f23ea8',
-				'label' => 'Icon Hover',
-				'name' => 'menu_submenu_icon_hover',
-				'aria-label' => '',
-				'type' => 'image',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'return_format' => 'url',
-				'library' => 'all',
-				'min_width' => '',
-				'min_height' => '',
-				'min_size' => '',
-				'max_width' => '',
-				'max_height' => '',
-				'max_size' => '',
-				'mime_types' => '',
-				'preview_size' => 'medium',
-			),
-			array(
-				'key' => 'field_6455gb66aea9',
-				'label' => 'Icon Alt Text',
-				'name' => 'menu_icon_alt_Text',
-				'aria-label' => '',
-				'type' => 'text',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => '',
-				'maxlength' => '',
-				'rows' => '',
-				'placeholder' => '',
-				'new_lines' => '',
-			),
-			array(
-				'key' => 'field_6488753a5aea9',
-				'label' => 'Text',
-				'name' => 'parent_intro_text',
-				'aria-label' => '',
-				'type' => 'textarea',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => '',
-				'maxlength' => '',
-				'rows' => '',
-				'placeholder' => '',
-				'new_lines' => '',
+                'key' => 'field_6498751adlink',
+                'label' => 'AD Link',
+                'name' => 'ad_link',
+                'type' => 'url',
+                'instructions' => 'Enter the URL for the advertisement.',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => ''
+                ),
 			),
 		),
 		'location' => array(
@@ -199,15 +132,14 @@ add_action( 'acf/include_fields', function() {
 	) );
 } );
 
-
 add_filter('wp_nav_menu_objects', 'my_wp_nav_menu_objects', 10, 2);
 function my_wp_nav_menu_objects($items, $args) {
     if (get_field('activate_2023_header_menu', 'options')) {
         foreach ($items as &$item) {
-            $icon = get_field('menu_submenu_icon', $item);
-            if ($icon) {
-                // Store the icon URL in a data attribute
-                $item->title .= '<span class="menu-icon" data-icon-url="' . esc_url($icon) . '"></span>';
+            $adImage = get_field('ad_image', $item);
+            $adLink = get_field('ad_link', $item);
+            if ($adImage && $adLink) {
+                $item->title .= '<span class="menu-ad-image" data-ad-image-url="' . esc_url($adImage) . '" data-ad-link-url="' . esc_url($adLink) . '"></span>';
             }
         }
     }
