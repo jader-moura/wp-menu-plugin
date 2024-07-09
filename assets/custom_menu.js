@@ -37,7 +37,7 @@ jQuery(document).ready(function ($) {
                 .empty()
                 .append(submenuContent)
                 .append($("<a>", { href: adLink, target: "_blank" }).append($("<img>", { src: adImage, class: "menu-ad-image" })))
-                .css("left", $this.offset().left + "px");
+                .css("left", $this.offset().left - 50 + "px");
 
             var submenuHeight = submenuContent.outerHeight();
             $(".subMenuWrapper").css("min-height", submenuHeight < 200 ? "200px" : submenuHeight + "px");
