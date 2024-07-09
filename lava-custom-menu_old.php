@@ -55,21 +55,6 @@ function addACFPages() {
 	
 }
 
-add_filter('wp_nav_menu_objects', 'add_custom_demo_label', 10, 2);
-function add_custom_demo_label($items, $args) {
-    foreach ($items as $item) {
-        if ($item->title == "Book a Demo") { // Exact match is crucial
-            $label = get_field('book_demo_button_label', 'option');
-            error_log('Checking label: ' . $label); // Check what label is being fetched
-            if ($label) {
-                $item->title = '<a id="bookDemo" href="' . $item->url . '">' . esc_html($label) . '</a>';
-                error_log('Label applied: ' . $item->title); // Confirm label application
-            }
-        }
-    }
-    return $items;
-}
-
 function enqueue_demo_button_script() {
     if (function_exists('get_field')) {
         $demo_label = get_field('book_demo_button_label', 'option');
@@ -99,7 +84,7 @@ function enqueue_demo_button_script() {
         <?php
     }
 }
-add_action('wp_footer', 'enqueue_demo_button_script'); 
+add_action('wp_head', 'enqueue_demo_button_script', 100); 
 
 
 /** ACF FIELDS MENU **/
