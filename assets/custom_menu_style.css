@@ -270,13 +270,11 @@ ul.nested-menu-has-children{
 }
 
 ul.nested-menu > li {
-    margin-bottom: 5px;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
 }
 
 ul.nested-menu > li.menu-item-has-children {
     padding: 52px 40px 20px 40px;
-    height: 100%;
     max-height: 300px;
 }
 
