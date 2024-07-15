@@ -75,8 +75,8 @@
     background-color: #FFFFFF;
     border-radius: 15px 15px 0 0;
     border: 1px solid #E9E5EE;
-    border-bottom: 20px solid #FFFFFF;
-    margin-top: 20px;
+    border-bottom: 10px solid #FFFFFF;
+    margin-top: 10px;
 }
 
 .site-header .main-navigation li.active > a:hover{
