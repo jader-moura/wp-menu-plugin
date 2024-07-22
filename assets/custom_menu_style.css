@@ -274,8 +274,10 @@ ul.nested-menu > li {
 }
 
 ul.nested-menu > li.menu-item-has-children {
-    padding: 52px 40px 20px 40px;
+    padding: 52px 12px 20px 40px;
     max-height: 300px;
+    flex: 1;
+    min-width: 185px;
 }
 
 ul.nested-menu li.menu-item-has-children > a {
